@@ -1,0 +1,43 @@
+<html>
+<head>
+<Title>
+HTML and javascript design
+</Title>
+</head>
+<body>
+<H1>HTML and javascript design</H1>
+This is the standard format of 90% of the HTML pages.  It is created by each .php file.  Php files write
+html by using the "echo" or "print" php command.
+<pre>
+&lthtml>
+&lthead>
+&lttitle>Title of Page</title>
+&ltScript>
+  function runQuery (Team,ID) {
+    var sql = "Update pipboys Set Team='" + Team + "' Where ID=" + ID;
+    window.location.href='query.php?sql=' + escape(sql);
+  }
+  &lt/Script>
+&lt/head>
+
+&ltbody>
+&ltinput type="button" value="Run Query" onclick="runQuery ('Blue', 1);">
+&lt/body>
+&lt/html>
+</pre>
+<br>
+Javascript functions at the top of the page are called after the buttons are pressed.  The javascript
+functions perform the action that the user wants to perform.
+<br>
+In this example, by pressing the "Run Query" button, query.php is called and a sql database query is performed.
+<p>
+Note: query.php <b>automatically returns to the .php calling page</b> because it uses this javascript snippet: 
+<pre>
+&ltscript>
+   <i>window.location.href = document.referrer;</i>
+&lt/script>
+</pre>
+as the final operation of query.php.  This also refreshes the calling .php page (very handy!).<br>
+<input type="button" value="Back" onclick="window.location.href='docs.html';">
+</body>
+</html>

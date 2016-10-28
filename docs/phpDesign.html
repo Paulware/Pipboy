@@ -1,0 +1,30 @@
+<html>
+<head>
+<Title>
+PHP Design
+</Title>
+</head>
+<body>
+<H1>PHP Design</H1>
+Using a browser (like internet explorer or Google chrome), a user will command the apache web server 
+(running on the raspberry pi) to serve .php files.<br>
+PHP is executed when the user enters the url location of the php file.  For example, by entering<br>
+<b>http://192.168.X.Y/Pipboy/index.php</b>  (where X.Y is assigned by the router).
+<p>
+PHP can also be executed when a network device calls in using its .lua code.  In this case it does 
+not care about the .html page generated but rather wants to update the database or perform an action<p>
+The apache web-server executes the .php files and creates an html page or updates the database.  HTML pages are 
+created by using the php command "echo" or "print".  Database updates are accomplished using the php command 
+"mysql_query".
+<p>
+Here is the list of .php files and a brief description.  Click on their link to view more detailed information.<br>
+<table border="2px">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td><a href="indexDesign.html">index.php</a></td><td>Show all players, permits the administrator to add players</td></tr>
+<tr><td><a href="updateDesign.html">updatePipboy.php</a></td><td>Called by each network device to update status</td></tr>
+<tr><td><a href="commonDesign.html">common.php</a></td><td>Contains functions that are needed in more than 1 place</td></tr>
+<tr><td>query.php</td><td>Update the database and refresh calling .php file</td></tr>
+</table><p>
+<input type="button" value="Back" onclick="window.location.href='docs.html';">
+</body>
+</html>

@@ -1,0 +1,77 @@
+<html>
+<head>
+<Title>
+MySQL and Database queries
+</Title>
+</head>
+<body>
+<H1>MySQL and Database Queries</H1>
+<h2>MySql</h2>
+<h3>Setup</h3>
+  To use mysql you must first login into the raspberry pi.  Use putty with an ssh connection.
+  Use a host name of "root@192.168.X.Y", where X and Y are assigned by the router.
+  <br><img src="images/putty.jpg" width="300px"><br>
+  You will prompted for a password. Use raspberry.
+<h3>Commands</h3>
+  <ul>
+  <li>To login to mysql: mysql -u root -p.  You will be prompted for password.  Use pi.</li>
+  <li>Once inside mysql, to Connect to the database, type the command: Connect Paulware</li>
+  <li>To see the tables type the command: show tables;</li>
+  <li>To see the data in a table type the command: select * from tablename;</li>
+  <li>To see all the pipboys type the command: select * from pipboys;</li>
+  <li>Fields in each table can be modified with the alter table sql command</li>
+  </ul>
+<h3>Queries</h3>
+  Queries are used during the game to take action.  Learning the queries is a great way to understand 
+  the basic design of the system.  The queries are executed inside of php files.  Common.inc is the php file which
+  is used to connect to the database. 
+  <ul>
+  <li><b>Select * from pipboys</b><p>This is your basic query to read all the pipboy information that has been registered with the system.  Each row of data
+  will contain the information:
+    <table border="2px">
+    <tr><td>ID</td><td>Primary Key, unique integer which identifies the row</td></tr>
+    <tr><td>Typename</td><td>Type of device connected to the network</td></tr>
+    <tr><td>MAC</td><td>Machine Id of network chip</td></tr>
+    <tr><td>IpAddress</td><td>Ip address of network chip assigned by router</td></tr>
+    <tr><td>Health</td><td>Health of the Pipboy player</td></tr>
+    <tr><td>Username</td><td>Name of the player</td></tr>
+    <tr><td>Location</td><td>[Latitude,Longitude] of player (not currently used)</td></tr>
+    <tr><td>Hits</td><td>Incremented when the player "hits" an enemy player.  Used to create a leaderboard.</td></tr>
+    <tr><td>Team</td><td>Color of the team that the player is on.  Set by the administrator</td></tr>
+    </table>   
+    <br>
+    This query is called by index.php to show the table of pipboys.  It is also used by various functions in common.php
+    to perform operations on the database.  One such operation is to increment the Hits field when the player 
+    scores a hit.  This operation is performed by the common.php function named: incrementHits.
+  </li><p>
+  <li><b>Update pipboys Set Health=25</b> <br>
+     This query is used at the start of capture the flags, to set the health of all 
+     players to 25.  This query is called out of the captureTheFlag function located in common.php
+  </li><p>
+  <li><b>Reset flag colors to 'None'</b><br>
+     This query is used at the start of capture the flags.<br>
+     It is accomplished by doing 2 queries, the first query finds all the flags<br>
+     The second query sets the flag color = 'None'<br>
+     Here is the php code that does it:
+     <pre>
+     // Set Flag colors = None
+     $sql = "Select * From pipboys Where Typename='Flag'";
+     $result = query ($sql);
+     while ($row = mysql_fetch_assoc ($result)) {		
+        $ID = $row["ID"]; // Primary key
+        $sql = "Update pipboys set Team='None' Where ID=$ID";
+        $q = query($sql);
+     }     
+     </pre>
+     </li>
+  
+  </ul>
+  
+  <p>
+  Other tables and their descriptions: <br>
+  items: A table of items and their names<br>
+  inventory: A table of itemid, ownerids and quantities
+<p>
+<input type="button" value="Back" onclick="window.location.href='docs.html';">
+</body>
+</html>

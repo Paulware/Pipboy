@@ -1,0 +1,35 @@
+<html>
+<head>
+<Title>
+updatePipboy.php Design
+</Title>
+</head>
+<body>
+<H1>updatePipboy.php Design</H1>
+updatePipboy.php is called by each network device to update its status.<p>
+Here are the key parts to updatePipboy.php with descriptions<br>
+<table border="2px">
+<tr><td><pre>
+include "common.inc";
+</pre><td>Connect to the Paulware database as user: "root"</td></tr>
+<tr><td><pre>
+$MAC = getParam ("MAC");</pre><td>Get the Machine Address (MAC) address of the device calling in</td></tr>
+<tr><td><pre>$Pipboy = findPipboy ($MAC);</pre></td><td>Get the row of information in the pipboys table that is associated with the MAC address of the device calling in</td></tr>
+<tr><td><pre>$PipboyTypename = $Pipboy["Typename"];</pre></td><td>Get the pre-defined type of the device that is calling in. <b>Note: Type is set by the administrator.</b></td></tr>
+<tr><td><pre>$IpAddress = $_SERVER['REMOTE_ADDR'];</pre></td><td>Get the IP Address of the device that is calling. <b>Note: IP Address is assigned by the router</b></td></tr>
+<tr><td><pre>$Message = getParam ("Message");</pre></td><td>Get the message sent by the device that is calling in.</td></tr>
+<tr><td><pre>list($Command, $Parameter, $data) = explode(":", $Message);</pre></td><td>Parse the message on the ":" character to split it into a command and a parameter</td></tr>
+<tr><td><pre>if ($cmd == "broadcast") {</pre></td><td>If the command = broadcast, send the message to all players</td></tr>
+<tr><td><pre>} elseif ($cmd == "add") {</pre></td><td>If the command = add, add an item to the callers inventory</td></tr> 
+<tr><td><pre>} elseif ($cmd == "startgame") {</pre></td><td>If the remote starter is calling in, start the capture the flags game</td></tr>
+<tr><td><pre>} elseif ($cmd == "ouch") {</pre></td><td>If the caller has been hit by an infra-red pulse, check it for friendly fire, decrease Health of the caller and increment Hits of the shooter</td></tr>
+<tr><td><pre>
+$sql = "UPDATE pipboys SET Timestamp=CURRENT_TIMESTAMP,
+IpAddress='$IpAddress',Message='$Message' WHERE MAC='$MAC'";
+$result = mysql_query($sql) or die("Could not execute: $sql");  
+</pre></td><td>Place the Ipaddress of the calling device in the database</td></tr>
+</table>
+
+<p><input type="button" value="Back" onclick="window.location.href='phpDesign.html';">
+</body>
+</html>

@@ -1,0 +1,47 @@
+<html>
+<head>
+<Title>
+Lua design
+</Title>
+</head>
+<body>
+<H1>Lua Design</H1>
+Lua is code that is run on the network esp8266 device.
+Its purpose is to forward messages from the raspberry pi server to the arduino for processing.<br>
+Here are the main components of the software
+<ul>
+<li>
+<pre>
+local SSID = "pipboy2000"
+local password = "" -- security is disabled
+</pre>
+Set the SSID and password of the open network that the sensors and server exist on.
+</li>
+<li><pre>
+function startListening()
+  port = 3333
+</pre>
+listen for the raspberry pi server to broadcast its ip address
+</li>
+<li><pre>
+function sendMsg(Message) 
+</pre>
+Send a message to the raspberry pi server.
+</li>
+<li>
+<pre>
+MAC = wifi.sta.getmac()
+</pre>
+Get the machine MAC address of the network device.
+</li>
+<li>
+<pre>
+wifi.sta.config (SSID,password) -- try to connect
+</pre>
+Logon to the pipboy2000 network
+</li>
+</ul>
+
+<input type="button" value="Back" onclick="window.location.href='docs.html';">
+</body>
+</html>

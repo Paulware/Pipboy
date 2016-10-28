@@ -1,0 +1,27 @@
+<html>
+<head>
+<Title>
+Python Design
+</Title>
+</head>
+<body>
+<H1>Python Design</H1>
+Python is used to accomplish 2 things:
+<ol>
+<li><b>broadcastAddress.py</b> - Broadcast the raspberry pi's ip address<p>
+This is accomplished by sending a udp broadcast message to all devices on the local subnet.
+<p>
+broadcastAddress.py is started when the raspberry pi boots up.  /etc/rc.local is the system file that 
+is run on startup that starts broadcastAddress.py.
+Every 30 seconds the message is sent on port 3333.
+</li>
+<li><b>sendMessage.py</b> - Send a message from the raspberry pi to a network device<br>
+
+The IP Address of the receiving device must be known.  The IP Address is passed as a command parameter to this 
+python file.  The php command "exec" is used to execute sendMessage.py.
+Port 3333 is used to send/receive this message.
+</li>
+</ol>
+<input type="button" value="Back" onclick="window.location.href='docs.html';">
+</body>
+</html>

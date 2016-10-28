@@ -1,0 +1,35 @@
+<html>
+<head>
+<Title>
+common.php Design
+</Title>
+</head>
+<body>
+<H1>common.php Design</H1>
+common.php contains functions that are used in multiple places.<p>
+Here is a table of functions with a brief description<br>
+<table border="2px">
+<tr><td>captureTheFlags</td><td>Start the capture the flags game</td></tr>
+<tr><td>killDevices</td><td>Kill devices owned by the player (like rifle) when the player dies</td></tr>
+<tr><td>findShooter</td><td>Take the 3 digits from the IR-pulse which identify the shooter and match it to a MAC address in the database</td></tr>
+<tr><td>incrementHits</td><td>Increment the number of Hits scored by a player</td></tr>
+<tr><td>selectTeam</td><td>Output an html select (combo-box) for team color to be displayed on a web-page</td></tr>
+<tr><td>modifyInventory</td><td>Add or subtract a quantity of items from a players inventory</td></tr>
+<tr><td>query</td><td>Perform a mysql_query</td></tr>
+<tr><td>MACtoIp($mac)</td><td>Find the Ip Address of the network device with the specified ($mac) MAC address</td></tr>
+<tr><td>findOwner ($OwnerId)</td><td>Return a row of data from the pipboys table which has the primary key, ID = $OwnerId</td></tr>
+<tr><td>findPipboy($mac)</td><td>Return a row of data from the pipboys table which has a MAC address = $mac</td></tr>
+<tr><td>findUsername ($Username)</td><td>Return a row of data from the pipboys table which is associated with the player whose name is $Username</td></tr>
+<tr><td>findItemByID($ID)</td><td>Return a row of data from the items table which has the primary key, ID = $ItemId</td></tr>
+<tr><td>findItem($Name)</td><td>Return a row of data from the items table which has an item name = $Name</td></tr>
+<tr><td>findInventory ($OwnerId, $ItemId)</td><td>Return a row of data from the inventory table which has a matching OwnerId=$OwnerId and ItemId=$ItemId</td></tr>
+<tr><td>updateInventoryItem ($PipboyId, $Item, $Quantity)</td><td>Update the inventory table, set the quantity to $Quantity, for the specified item with ID=$Item owned by the Player with ID = $PipboyId</td></tr> 
+<tr><td>getRandomItem()</td><td>Select a random item from the items table</td></tr>
+<tr><td>echoPlayers()</td><td>Used to create a select (combo-box) on an html page that shows each player's name. <b>Note: Non-player characters are excluded</b></td></tr>
+<tr><td>echoOwnerOptions ()</td><td>Used to create a select (combo-box) showing all player's names. <b>Note: Non-player characters are included</b></td></tr>
+<tr><td>getParam ($name)</td><td>Return the value of the specified param which is embedded in the calling url address</td></tr>
+</table>
+
+<p><input type="button" value="Back" onclick="window.location.href='phpDesign.html';">
+</body>
+</html>

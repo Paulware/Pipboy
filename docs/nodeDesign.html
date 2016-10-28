@@ -1,0 +1,93 @@
+<html>
+<head>
+<Title>
+Node js design
+</Title>
+</head>
+<body>
+<H1>Node.js Design</H1>
+Node.js is used to provide an alternate web-server that is used to control robotic devices on the 
+network.  Node.js allows multiple users to command devices on the network.<br>
+Here is a brief description of the code located at: /usr/lib/cgi-bin/TankServer/tank.js
+<ul>
+<li>
+<pre>
+var dbConnection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'pi',
+  password : 'raspberry',
+  database : 'Paulware'
+});
+</pre>
+Connect to the database as user: "pi" with password: "raspberry"
+</li>
+<li><pre>
+serverAddress = 'http://' + iface.address + ':3000'; 
+</pre>
+Get the address of the server 
+</li>
+<li><pre>
+app.get('/', function(req, res){
+  response = res;
+  dbConnection.query('SELECT * from pipboys', function(err, rows, fields) {
+    if (!err) {
+      msg = '&lthtml>&ltbody>&ltimg src=\"/images/darth.jpg\">\n' 
+</pre>
+Create the basic (home) page of this server accessible from the url: http://192.168.X.Y:3000 where X.Y
+are assigned by the router.
+</li>
+<li><pre>
+app.get('/Tank', function(req, response){
+    var url_parts = url.parse(req.url, true);
+    var query = url_parts.query;
+</pre>
+Create the page that is used to drive the tank with keys: wsda and space.
+</li>
+<li><pre>
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){ // chat message received on socket
+    console.log ( 'Got chat msg:' + msg + '.' );
+    index = msg.indexOf (" ");
+    cmd = msg.substring (0,index);
+    addr = msg.substring (index+1);  
+    parameter = "";    
+</pre>
+Send the wsda,space commands that are sent from the web-page to the node.js server.   Pass 
+these commands along to the connected device with Ip Address = addr.
+</li>
+</ul>
+
+The tank.js code is run on each boot.  This is accomplished by the file: /etc/init.d/tank
+which specifies the tank service and how it is run 
+<pre>
+
+#!/bin/bash
+# /etc/init.d/tank
+
+### BEGIN INIT INFO
+# Provides: tank
+### END INIT INFO
+
+case "$1" in
+   start)
+      echo "Starting tank"
+      cd /usr/lib/cgi-bin/TankServer
+      /usr/local/bin/node /usr/lib/cgi-bin/TankServer/tank.js
+      ;;
+   stop)
+      echo "Stopping tank"
+      killall node
+      ;;
+   *)
+      echo "Usage: /etc/init.d/tank start|stop"
+      exit 1
+      ;;
+
+esac
+
+exit 0
+</pre>
+
+<input type="button" value="Back" onclick="window.location.href='docs.html';">
+</body>
+</html>

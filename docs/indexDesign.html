@@ -1,0 +1,44 @@
+<html>
+<head>
+<Title>
+index.php Design
+</Title>
+</head>
+<body>
+<H1>index.php Design</H1>
+<h2>http://192.168.X.Y/Pipboy/index.php</h2>
+index.php shows all players and lets the administrator add or remove players, and set their team color.<p>
+Here are the main parts of index.php with descriptions<br>
+<table border="2px">
+<tr><td>include "common.inc";</td><td>Connect to Paulware mysql database as user: "root"</td></tr>
+<tr><td>$User = $_COOKIE["User"];</td><td>Get the name of the player logged in, "admin" will have special privileges</td></tr> 
+<tr><td>
+   <pre>
+if ($User == "") {
+   echo ("&ltscript>window.location.href='login.php';&lt/script>\n" );  
+} else {
+   </pre>
+   </td><td>If player is not logged in, send them to the login.php page</td></tr>
+<tr><td><pre>
+if ($User != 'admin') { // Normal player
+</pre></td><td>If normal player is logged in just show information for that player</td></tr>
+<tr><td><pre>
+} else { // User == admin
+</pre></td><td>If administrator is logged in show information for all players</td></tr>
+<tr><td><pre>
+$result = query ( "Select * From lostpipboys" );
+while ($row = mysql_fetch_assoc ($result)) {
+</pre>
+</td><td>Show network devices that have not yet been manually added to the system by the administrator</td></tr>
+<tr><td><pre>
+$result = query ( "Select * From pipboys" );
+while ($row = mysql_fetch_assoc ($result)) {		
+</pre></td><td>Show all players</td></tr>
+<tr><td><pre>
+&ltinput type="button" value="Capture the Flags" 
+onclick="window.location.href='captureTheFlags.php';">  
+</pre></td><td>Provide a button to start the capture the flags game</td></tr>
+</table>
+<p><input type="button" value="Back" onclick="window.location.href='phpDesign.html';">
+</body>
+</html>

@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>Pipboy Design</title>
+</head>
+<body>
+<H1>Pipboy LazerTag Components</H1><br>
+The Pipboy lazer tag system is composed of various components (click on image to view larger):
+<table border="2px solid">
+<tr><th>Name</th><th>Image</th><th>Description</th></tr>
+<tr><td>Wireless Router</td><td><a href="images/router.jpg"><img src="images/router.jpg" width="100"></a></td><td>creates an open (security disabled) network with SSID=pipboy2000</td></tr>
+<tr><td>Raspberry pi 3.0</td><td><a href="images/pi3.png"><img src="images/pi3.png" width="100"></a></td><td> connects to router via RJ45 cable and runs an apache web-server and a node.js web-server</td></tr>
+<tr><td>Pipboy (android device)</td><td><a href="images/pipboy3000.jpg"><img src="images/pipboy3000.jpg" width="100"></a></td><td>connects to router and can interact with web-server (via android browser)</td></tr>
+<tr><td>Helmet</td><td><a href="images/helmet.jpg"><img src="images/helmet.jpg" width="100"></a></td><td>connects to web-server (via esp8266) and receives IR "hits" via arduino</td></tr>
+<tr><td>Rifle</td><td><a href="images/longStrike.jpg"><img src="images/longStrike.jpg" width="100"></a></td><td>connects to web-server (via esp8266) and shoots IR pulses at enemy</td></tr>
+<tr><td>Pistol</td><td><a href="images/lazertagPistol.jpg"><img src="images/lazertagPistol.jpg" width="100"></a></td><td>does not connect to web-server, and uses an arduino mini-pro to fire</td></tr>
+<tr><td>Self propelled vehicle</td><td><a href="images/tigerTank.jpg"><img src="images/tigerTank.jpg" width="100"></a></td><td>connects to web-server (via esp8266) and accepts wsda commands from an alternate (node.js) web-server</td></tr>
+<tr><td>Flags</td><td><a href="images/flag.jpg"><img src="images/flag.jpg" width="100"></a></td><td>Will change to team color (red/green/blue) and rotates when hit.  Game may be over when all flags are same color.</td></tr>
+<tr><td>Remote Starter</td><td>&nbsp;</td><td>Allows the administrator to remotely start the game, also contains an lcd display to show ip address of raspberry pi</td></tr>
+</table>
+<hr>
+<H1>System Behavior</H1><br>
+   Pipboy lazer tag is an interactive team based game utilizing equipment connected on a local network.  This 
+   network is provided by a wireless router which does not need to be connected to the internet.  A raspberry pi
+   is connected to the network.  The pi provides the gaming "engine" which controls the the play, creates leader boards,
+   and enforces various game "rules".<p>
+   The code on the pi is open and can be customized be the game administrator.
+
+
+<h1>Some requirements:</H1>
+   <ul>
+   <li>The raspberry pi is connected via <a href="https://en.wikipedia.org/wiki/Modular_connector#8P8C">RJ45</a> connector to the wifi router</li>
+   <li>The wifi router will give the raspberry server an ip address via <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">dhcp</a></li>
+   <li>The raspberry server will broadcast its ip address via <a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">udp</a> to all connected devices twice a minute</li>
+   <li>Each lazer tag gun will have an <a href="https://en.wikipedia.org/wiki/ESP8266">esp8266</a> which logs to the local pipboy network with <a href="https://en.wikipedia.org/wiki/Service_set_(802.11_network)#Service_set_identification_.28SSID.29">SSID</a>="Pipboy2000" Password=""</li>
+   <li>After logon, the lazer tag gun tri-color LED will display color BLUE until the esp8266 receives the raspberry pi server's ip address</li>
+   <li>When the lazer tag gun's esp8266 receives the raspberry pi server's ip address it will display GREEN and start sending periodic "Hello" messages.  The gun is now ready for play.</li>   
+   </ul>
+<h1>Software Design</h1>
+   <ul>
+   <li><a href="sqlDatabaseQueries.html">MySQL and Database queries</a></li>
+   <li><a href="htmlJavascript.html">HTML/javascript design</a></li>
+   <li><a href="phpDesign.html">Php design</a></li>
+   <li><a href="pythonDesign.html">Python design</a></li>
+   <li><a href="nodeDesign.html">Node.js design</a></li>
+   <li><a href="luaDesign.html">Lua code design</a> running on the network devices</li>
+   <li>Helmet arduino code</li>
+   <li>Rifle arduino code</li>
+   <li>Pistol arduino code</li>
+   <li>Flag arduino code</li>
+   <li>Remote starter arduino code</li>
+   <li>LCD arduino mini pro code</li>
+   <li>PIP boy Android MIT App inventor 2 code</li>
+   <li>Tank/Sumo bot arduino code</li>
+   </ul>
+<h1>Hardware Design</h1>
+   <ul>
+   <li>Helmet</li>
+   <li>Rifle</li>
+   <li>Pistol</li>
+   <li>Flag</li>
+   <li>Remote started</li>
+   <li>Tank</li>
+   </ul>
+</body>
+</html>
